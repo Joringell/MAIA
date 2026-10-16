@@ -1,0 +1,170 @@
+model_name: "ltx_pca_kmeans_observed"
+is_i2v: true
+report_to: none
+tracker_name: ltx_pca_kmeans_observed
+run_name: insert-all
+
+runner_class_path: runner/pca_kmeans_trainer.py
+runner_class: Trainer
+
+logging_dir: logs
+output_dir: /root/MAIA/outputs/insert/pca_kmeans_vsf
+pretrained_model_name_or_path: /root/MAIA/weights/ltx_video
+load_weights: true
+load_diffusion_model_weights: false
+split_manifest: /root/MAIA/data_splits/single/insert_train_seed42_val20_test30_train100.json
+
+train_data_class_path: data/lerobot_chunk_dataset_traverse.py
+train_data_class: CustomLeRobotChunkTraverseDataset
+val_data_class_path: data/lerobot_chunk_dataset_traverse.py
+val_data_class: CustomLeRobotChunkTraverseDataset
+
+vae_class_path: models/ltx_models/autoencoder_kl_ltx.py
+vae_class: AutoencoderKLLTXVideo
+
+label_filter: "all"
+pca_kmeans_val_quantile: 0.95
+observed_feature:
+  cache_dir: /root/MAIA/cache/insert/observed_feature
+  max_open_shards: 16
+  feature_mode: video_state_force
+  fit_filter: normal_episode_windows
+  force_bins: 5
+wm_feature:
+  cache_dir: /root/MAIA/cache/insert/video_action_force_anomaly
+  max_open_shards: 16
+  # feature_mode:  action_force_cache_mean
+  feature_mode: action_force_cache_binned
+  fit_filter: normal_episode_windows
+
+pca_kmeans:
+  pca_dim: 128
+  n_clusters: 32
+  max_iter: 100
+  seed: 42
+  max_fit_windows: 50000
+
+mixed_precision: bf16
+allow_tf32: false
+nccl_timeout: 1800
+seed: 42
+
+enable_slicing: true
+enable_tiling: true
+add_state: false
+caption_dropout_p: 0.0
+
+batch_size: 64
+dataloader_num_workers: 8
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+
+gradient_checkpointing: false
+train_steps: 1
+train_epochs: 1
+steps_to_save: 1
+steps_to_log: 1
+steps_to_val: 0
+gradient_accumulation_steps: 1
+
+optimizer: adamw
+lr: 1.0e-4
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+epsilon: 1.0e-8
+weight_decay: 1.0e-5
+optimizer_8bit: false
+optimizer_torchao: false
+scale_lr: false
+max_grad_norm: 1.0
+lr_scheduler: constant
+lr_warmup_steps: 0
+lr_num_cycles: 1
+lr_power: 1.0
+
+data:
+  train:
+    data_roots: ["/root/CRIA/insert"]
+    domains: all
+
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "uniform"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+    include_tail_windows: true
+    start_at_zero: true
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest: /root/MAIA/data_splits/single/insert_train_seed42_val20_test30_train100.json
+    split: train
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/insert_stats_chunk.json"
+
+    force_key: "observation.state.wrench_filtered_chunk"
+    force_mode: "last"
+    force_dim: 6
+    force_target_dim: 6
+    force_type: absolute
+    force_history_steps: 30
+
+  val:
+    data_roots: ["/root/CRIA/insert"]
+    domains: all
+
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "uniform"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+    include_tail_windows: true
+    start_at_zero: true
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest: /root/MAIA/data_splits/single/insert_train_seed42_val20_test30_train100.json
+    split: val
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/insert_stats_chunk.json"
+
+    force_key: "observation.state.wrench_filtered_chunk"
+    force_mode: "last"
+    force_dim: 6
+    force_target_dim: 6
+    force_type: absolute
+    force_history_steps: 30

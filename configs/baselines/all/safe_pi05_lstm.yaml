@@ -1,0 +1,110 @@
+model_name: "safe_pi05_lstm"
+is_i2v: true
+report_to: none
+tracker_name: safe_pi05_lstm
+run_name: all-part
+
+runner_class_path: runner/safe_pi05_trainer.py
+runner_class: Trainer
+
+logging_dir: logs
+output_dir: /root/MAIA/outputs/all/safe_pi05_lstm
+pretrained_model_name_or_path: /root/MAIA/weights/ltx_video
+load_weights: true
+load_diffusion_model_weights: false
+split_manifest: /root/MAIA/data_splits/train13_seed42_val20_test30_train100.json
+
+# Kept for BaseGE-style config compatibility. SAFE pi05 training uses the
+# explicit sequence filters below.
+label_filter: "all"
+# Quick validation threshold quantile over the configured normal validation
+# source. Final conformal/eval scripts should set their own alpha/threshold.
+safe_val_quantile: 0.95
+pi05_feature:
+  cache_dir: /root/MAIA/cache/all/pi05
+  max_open_shards: 32
+  # Sequence inclusion filter options, applied to whole episode sequences:
+  #   all: keep every manifest episode.
+  #   success_normal: keep successful episodes only, using episode_label == 1.
+  #   all_normal: keep episodes whose cached query frames are all normal and interaction_label == 0.
+  # Priority:
+  #   data.<split>.sequence_filter > pi05_feature.<split>_sequence_filter > pi05_feature.sequence_filter
+  sequence_filter: all
+  train_sequence_filter: all
+  val_sequence_filter: all
+  min_sequence_length: 2
+
+safe:
+  model_type: lstm
+  hidden_dim: 256
+  num_layers: 2
+  dropout: 0.1
+  history_steps: -1
+  cumsum: false
+  rmean: false
+  # target_mode options:
+  #   episode: whole-episode failure target from episode_label == 0.
+  #   frame: current query-frame anomaly target from frame_label == 0.
+  # Original SAFE uses episode-level coarse supervision: every timestep in a
+  # failed rollout is trained as failure=1, every timestep in a successful
+  # rollout is trained as failure=0.
+  target_mode: frame # episode
+  # Match original SAFE's hidden-state normalization idea: fit mean/std on
+  # train split only, then save them with safe_pi05.pt.
+  normalize_features: true
+  # calibration_normal options:
+  #   success_normal: CP calibration uses frames from successful episodes.
+  #   all_normal: CP calibration uses frames whose current-frame target is normal.
+  calibration_normal: success_normal
+
+mixed_precision: bf16
+allow_tf32: false
+nccl_timeout: 1800
+seed: 42
+
+batch_size: 32
+dataloader_num_workers: 4
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+
+gradient_checkpointing: false
+train_steps: 2000
+train_epochs: 1000
+steps_to_save: 1000
+steps_to_log: 20
+steps_to_val: 1000
+gradient_accumulation_steps: 1
+
+optimizer: adamw
+lr: 1.0e-4
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+epsilon: 1.0e-8
+weight_decay: 1.0e-5
+optimizer_8bit: false
+optimizer_torchao: false
+scale_lr: false
+max_grad_norm: 1.0
+lr_scheduler: constant
+lr_warmup_steps: 0
+lr_num_cycles: 1
+lr_power: 1.0
+
+data:
+  train:
+    domains: all
+    split_manifest: /root/MAIA/data_splits/train13_seed42_val20_test30_train100.json
+    split: train
+    # Explicit split-level training filter. Original SAFE should train on both
+    # successful and failed episodes, so keep this as "all" by default.
+    sequence_filter: all
+
+  val:
+    domains: all
+    split_manifest: /root/MAIA/data_splits/train13_seed42_val20_test30_train100.json
+    split: val
+    # Explicit split-level validation filter. Threshold calibration is further
+    # controlled by safe.calibration_normal.
+    sequence_filter: all

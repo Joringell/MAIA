@@ -1,0 +1,1297 @@
+{
+  "version": 1,
+  "generated_by": "create_lerobot_episode_splits.py",
+  "data_root": "/root/CRIA",
+  "seed": 42,
+  "split_policy": {
+    "unit": "episode",
+    "per_domain_test_count": 30,
+    "per_domain_val_count": 20,
+    "train": "remaining episodes",
+    "source_balance": "even across available preferred sources per domain",
+    "preferred_sources": [
+      "human",
+      "pi05_joint"
+    ],
+    "label_balance": "proportional within each source using episode_label"
+  },
+  "domains": [
+    "insert_plug_2",
+    "insert_plug_3",
+    "insert_typec"
+  ],
+  "train": {
+    "insert_plug_2": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      24,
+      25,
+      27,
+      29,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      41,
+      42,
+      43,
+      44,
+      47,
+      48,
+      50,
+      51,
+      53,
+      54,
+      56,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      70,
+      71,
+      72,
+      73,
+      75,
+      76,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      86,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      96,
+      98,
+      100,
+      101,
+      102,
+      107,
+      109,
+      111,
+      114,
+      117,
+      118,
+      120,
+      121,
+      126,
+      127,
+      128,
+      129,
+      131,
+      133,
+      135,
+      136,
+      139,
+      141,
+      142,
+      143,
+      146,
+      147
+    ],
+    "insert_plug_3": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      19,
+      20,
+      22,
+      23,
+      24,
+      29,
+      30,
+      31,
+      32,
+      33,
+      35,
+      36,
+      37,
+      38,
+      40,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      50,
+      51,
+      52,
+      53,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      67,
+      68,
+      70,
+      71,
+      72,
+      73,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      84,
+      85,
+      87,
+      88,
+      90,
+      91,
+      92,
+      93,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      102,
+      104,
+      105,
+      109,
+      110,
+      115,
+      117,
+      118,
+      119,
+      120,
+      121,
+      126,
+      128,
+      129,
+      132,
+      134,
+      137,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149
+    ],
+    "insert_typec": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      21,
+      22,
+      23,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      34,
+      35,
+      38,
+      39,
+      40,
+      41,
+      43,
+      45,
+      46,
+      47,
+      48,
+      50,
+      51,
+      52,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      67,
+      68,
+      70,
+      71,
+      72,
+      73,
+      75,
+      77,
+      78,
+      79,
+      80,
+      81,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      92,
+      95,
+      96,
+      97,
+      98,
+      101,
+      104,
+      107,
+      109,
+      110,
+      114,
+      115,
+      116,
+      122,
+      123,
+      126,
+      127,
+      128,
+      131,
+      132,
+      133,
+      134,
+      136,
+      138,
+      143,
+      145,
+      146,
+      147,
+      148,
+      149
+    ]
+  },
+  "val": {
+    "insert_plug_2": [
+      0,
+      7,
+      38,
+      45,
+      49,
+      52,
+      55,
+      84,
+      87,
+      97,
+      105,
+      112,
+      115,
+      119,
+      122,
+      123,
+      124,
+      130,
+      144,
+      145
+    ],
+    "insert_plug_3": [
+      15,
+      25,
+      27,
+      28,
+      34,
+      56,
+      57,
+      74,
+      82,
+      83,
+      112,
+      113,
+      124,
+      125,
+      127,
+      131,
+      133,
+      136,
+      138,
+      139
+    ],
+    "insert_typec": [
+      8,
+      24,
+      25,
+      33,
+      49,
+      69,
+      74,
+      76,
+      90,
+      94,
+      103,
+      106,
+      111,
+      117,
+      120,
+      125,
+      130,
+      137,
+      139,
+      140
+    ]
+  },
+  "test": {
+    "insert_plug_2": [
+      23,
+      26,
+      28,
+      30,
+      39,
+      40,
+      46,
+      57,
+      68,
+      69,
+      74,
+      77,
+      85,
+      95,
+      99,
+      103,
+      104,
+      106,
+      108,
+      110,
+      113,
+      116,
+      125,
+      132,
+      134,
+      137,
+      138,
+      140,
+      148,
+      149
+    ],
+    "insert_plug_3": [
+      7,
+      10,
+      11,
+      21,
+      26,
+      39,
+      41,
+      49,
+      54,
+      55,
+      66,
+      69,
+      86,
+      89,
+      94,
+      101,
+      103,
+      106,
+      107,
+      108,
+      111,
+      114,
+      116,
+      122,
+      123,
+      130,
+      135,
+      140,
+      141,
+      142
+    ],
+    "insert_typec": [
+      0,
+      1,
+      12,
+      19,
+      36,
+      37,
+      42,
+      44,
+      53,
+      66,
+      82,
+      89,
+      91,
+      93,
+      99,
+      100,
+      102,
+      105,
+      108,
+      112,
+      113,
+      118,
+      119,
+      121,
+      124,
+      129,
+      135,
+      141,
+      142,
+      144
+    ]
+  },
+  "summary": {
+    "insert_plug_2": {
+      "all": {
+        "num_episodes": 150,
+        "source": {
+          "human": 100,
+          "pi05_joint": 50
+        },
+        "episode_label": {
+          "0": 88,
+          "1": 62
+        },
+        "source_label": {
+          "human|0": 50,
+          "human|1": 50,
+          "pi05_joint|0": 38,
+          "pi05_joint|1": 12
+        },
+        "frames": {
+          "total_frames": 88564,
+          "manual_normal_frames": 57450,
+          "manual_anomaly_frames": 31114,
+          "manual_normal_ratio": 0.6486834379657649,
+          "manual_anomaly_ratio": 0.3513165620342351,
+          "episodes_with_manual_anomaly": 128,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 51483,
+            "manual_normal_frames": 38112,
+            "manual_anomaly_frames": 13371,
+            "manual_normal_ratio": 0.740283200279704,
+            "manual_anomaly_ratio": 0.25971679972029604,
+            "episodes_with_manual_anomaly": 83,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 37081,
+            "manual_normal_frames": 19338,
+            "manual_anomaly_frames": 17743,
+            "manual_normal_ratio": 0.5215069712251558,
+            "manual_anomaly_ratio": 0.4784930287748443,
+            "episodes_with_manual_anomaly": 45,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 56037,
+            "manual_normal_frames": 28101,
+            "manual_anomaly_frames": 27936,
+            "manual_normal_ratio": 0.5014722415546871,
+            "manual_anomaly_ratio": 0.49852775844531294,
+            "episodes_with_manual_anomaly": 88,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 32527,
+            "manual_normal_frames": 29349,
+            "manual_anomaly_frames": 3178,
+            "manual_normal_ratio": 0.9022965536323669,
+            "manual_anomaly_ratio": 0.09770344636763305,
+            "episodes_with_manual_anomaly": 40,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "train": {
+        "num_episodes": 100,
+        "source": {
+          "human": 75,
+          "pi05_joint": 25
+        },
+        "episode_label": {
+          "0": 57,
+          "1": 43
+        },
+        "source_label": {
+          "human|0": 38,
+          "human|1": 37,
+          "pi05_joint|0": 19,
+          "pi05_joint|1": 6
+        },
+        "frames": {
+          "total_frames": 57282,
+          "manual_normal_frames": 38038,
+          "manual_anomaly_frames": 19244,
+          "manual_normal_ratio": 0.6640480430152579,
+          "manual_anomaly_ratio": 0.3359519569847422,
+          "episodes_with_manual_anomaly": 84,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 38530,
+            "manual_normal_frames": 28331,
+            "manual_anomaly_frames": 10199,
+            "manual_normal_ratio": 0.7352971710355567,
+            "manual_anomaly_ratio": 0.2647028289644433,
+            "episodes_with_manual_anomaly": 62,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 18752,
+            "manual_normal_frames": 9707,
+            "manual_anomaly_frames": 9045,
+            "manual_normal_ratio": 0.5176514505119454,
+            "manual_anomaly_ratio": 0.4823485494880546,
+            "episodes_with_manual_anomaly": 22,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 35329,
+            "manual_normal_frames": 17854,
+            "manual_anomaly_frames": 17475,
+            "manual_normal_ratio": 0.5053638653797163,
+            "manual_anomaly_ratio": 0.4946361346202836,
+            "episodes_with_manual_anomaly": 57,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 21953,
+            "manual_normal_frames": 20184,
+            "manual_anomaly_frames": 1769,
+            "manual_normal_ratio": 0.9194187582562747,
+            "manual_anomaly_ratio": 0.08058124174372523,
+            "episodes_with_manual_anomaly": 27,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "val": {
+        "num_episodes": 20,
+        "source": {
+          "human": 10,
+          "pi05_joint": 10
+        },
+        "episode_label": {
+          "0": 13,
+          "1": 7
+        },
+        "source_label": {
+          "human|0": 5,
+          "human|1": 5,
+          "pi05_joint|0": 8,
+          "pi05_joint|1": 2
+        },
+        "frames": {
+          "total_frames": 12694,
+          "manual_normal_frames": 8195,
+          "manual_anomaly_frames": 4499,
+          "manual_normal_ratio": 0.645580589254766,
+          "manual_anomaly_ratio": 0.354419410745234,
+          "episodes_with_manual_anomaly": 18,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 5369,
+            "manual_normal_frames": 3990,
+            "manual_anomaly_frames": 1379,
+            "manual_normal_ratio": 0.7431551499348109,
+            "manual_anomaly_ratio": 0.25684485006518903,
+            "episodes_with_manual_anomaly": 9,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 7325,
+            "manual_normal_frames": 4205,
+            "manual_anomaly_frames": 3120,
+            "manual_normal_ratio": 0.5740614334470989,
+            "manual_anomaly_ratio": 0.425938566552901,
+            "episodes_with_manual_anomaly": 9,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 8691,
+            "manual_normal_frames": 4473,
+            "manual_anomaly_frames": 4218,
+            "manual_normal_ratio": 0.5146703486365205,
+            "manual_anomaly_ratio": 0.48532965136347944,
+            "episodes_with_manual_anomaly": 13,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 4003,
+            "manual_normal_frames": 3722,
+            "manual_anomaly_frames": 281,
+            "manual_normal_ratio": 0.9298026480139895,
+            "manual_anomaly_ratio": 0.07019735198601049,
+            "episodes_with_manual_anomaly": 5,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "test": {
+        "num_episodes": 30,
+        "source": {
+          "human": 15,
+          "pi05_joint": 15
+        },
+        "episode_label": {
+          "0": 18,
+          "1": 12
+        },
+        "source_label": {
+          "human|0": 7,
+          "human|1": 8,
+          "pi05_joint|0": 11,
+          "pi05_joint|1": 4
+        },
+        "frames": {
+          "total_frames": 18588,
+          "manual_normal_frames": 11217,
+          "manual_anomaly_frames": 7371,
+          "manual_normal_ratio": 0.6034538411878632,
+          "manual_anomaly_ratio": 0.39654615881213684,
+          "episodes_with_manual_anomaly": 26,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 7584,
+            "manual_normal_frames": 5791,
+            "manual_anomaly_frames": 1793,
+            "manual_normal_ratio": 0.763581223628692,
+            "manual_anomaly_ratio": 0.236418776371308,
+            "episodes_with_manual_anomaly": 12,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 11004,
+            "manual_normal_frames": 5426,
+            "manual_anomaly_frames": 5578,
+            "manual_normal_ratio": 0.4930934205743366,
+            "manual_anomaly_ratio": 0.5069065794256634,
+            "episodes_with_manual_anomaly": 14,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 12017,
+            "manual_normal_frames": 5774,
+            "manual_anomaly_frames": 6243,
+            "manual_normal_ratio": 0.48048597819755345,
+            "manual_anomaly_ratio": 0.5195140218024465,
+            "episodes_with_manual_anomaly": 18,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 6571,
+            "manual_normal_frames": 5443,
+            "manual_anomaly_frames": 1128,
+            "manual_normal_ratio": 0.828336630649825,
+            "manual_anomaly_ratio": 0.171663369350175,
+            "episodes_with_manual_anomaly": 8,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      }
+    },
+    "insert_plug_3": {
+      "all": {
+        "num_episodes": 150,
+        "source": {
+          "human": 100,
+          "pi05_joint": 50
+        },
+        "episode_label": {
+          "0": 85,
+          "1": 65
+        },
+        "source_label": {
+          "human|0": 50,
+          "human|1": 50,
+          "pi05_joint|0": 35,
+          "pi05_joint|1": 15
+        },
+        "frames": {
+          "total_frames": 93888,
+          "manual_normal_frames": 52540,
+          "manual_anomaly_frames": 41348,
+          "manual_normal_ratio": 0.5596029311520109,
+          "manual_anomaly_ratio": 0.44039706884798907,
+          "episodes_with_manual_anomaly": 133,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 46663,
+            "manual_normal_frames": 34224,
+            "manual_anomaly_frames": 12439,
+            "manual_normal_ratio": 0.7334290551400467,
+            "manual_anomaly_ratio": 0.2665709448599533,
+            "episodes_with_manual_anomaly": 83,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 47225,
+            "manual_normal_frames": 18316,
+            "manual_anomaly_frames": 28909,
+            "manual_normal_ratio": 0.3878454208575966,
+            "manual_anomaly_ratio": 0.6121545791424033,
+            "episodes_with_manual_anomaly": 50,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 58809,
+            "manual_normal_frames": 24532,
+            "manual_anomaly_frames": 34277,
+            "manual_normal_ratio": 0.41714703531772346,
+            "manual_anomaly_ratio": 0.5828529646822765,
+            "episodes_with_manual_anomaly": 85,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 35079,
+            "manual_normal_frames": 28008,
+            "manual_anomaly_frames": 7071,
+            "manual_normal_ratio": 0.7984264089626272,
+            "manual_anomaly_ratio": 0.2015735910373728,
+            "episodes_with_manual_anomaly": 48,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "train": {
+        "num_episodes": 100,
+        "source": {
+          "human": 75,
+          "pi05_joint": 25
+        },
+        "episode_label": {
+          "0": 55,
+          "1": 45
+        },
+        "source_label": {
+          "human|0": 38,
+          "human|1": 37,
+          "pi05_joint|0": 17,
+          "pi05_joint|1": 8
+        },
+        "frames": {
+          "total_frames": 58672,
+          "manual_normal_frames": 34270,
+          "manual_anomaly_frames": 24402,
+          "manual_normal_ratio": 0.5840946277611127,
+          "manual_anomaly_ratio": 0.41590537223888735,
+          "episodes_with_manual_anomaly": 90,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 35491,
+            "manual_normal_frames": 25258,
+            "manual_anomaly_frames": 10233,
+            "manual_normal_ratio": 0.711673381984165,
+            "manual_anomaly_ratio": 0.288326618015835,
+            "episodes_with_manual_anomaly": 65,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 23181,
+            "manual_normal_frames": 9012,
+            "manual_anomaly_frames": 14169,
+            "manual_normal_ratio": 0.3887666623527889,
+            "manual_anomaly_ratio": 0.6112333376472111,
+            "episodes_with_manual_anomaly": 25,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 35220,
+            "manual_normal_frames": 15141,
+            "manual_anomaly_frames": 20079,
+            "manual_normal_ratio": 0.4298977853492334,
+            "manual_anomaly_ratio": 0.5701022146507666,
+            "episodes_with_manual_anomaly": 55,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 23452,
+            "manual_normal_frames": 19129,
+            "manual_anomaly_frames": 4323,
+            "manual_normal_ratio": 0.8156660412757973,
+            "manual_anomaly_ratio": 0.18433395872420263,
+            "episodes_with_manual_anomaly": 35,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "val": {
+        "num_episodes": 20,
+        "source": {
+          "human": 10,
+          "pi05_joint": 10
+        },
+        "episode_label": {
+          "0": 12,
+          "1": 8
+        },
+        "source_label": {
+          "human|0": 5,
+          "human|1": 5,
+          "pi05_joint|0": 7,
+          "pi05_joint|1": 3
+        },
+        "frames": {
+          "total_frames": 13412,
+          "manual_normal_frames": 6635,
+          "manual_anomaly_frames": 6777,
+          "manual_normal_ratio": 0.49470623322397855,
+          "manual_anomaly_ratio": 0.5052937667760214,
+          "episodes_with_manual_anomaly": 17,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 4301,
+            "manual_normal_frames": 3553,
+            "manual_anomaly_frames": 748,
+            "manual_normal_ratio": 0.8260869565217391,
+            "manual_anomaly_ratio": 0.17391304347826086,
+            "episodes_with_manual_anomaly": 7,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 9111,
+            "manual_normal_frames": 3082,
+            "manual_anomaly_frames": 6029,
+            "manual_normal_ratio": 0.3382724179563165,
+            "manual_anomaly_ratio": 0.6617275820436834,
+            "episodes_with_manual_anomaly": 10,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 9582,
+            "manual_normal_frames": 3323,
+            "manual_anomaly_frames": 6259,
+            "manual_normal_ratio": 0.34679607597578793,
+            "manual_anomaly_ratio": 0.653203924024212,
+            "episodes_with_manual_anomaly": 12,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 3830,
+            "manual_normal_frames": 3312,
+            "manual_anomaly_frames": 518,
+            "manual_normal_ratio": 0.8647519582245431,
+            "manual_anomaly_ratio": 0.1352480417754569,
+            "episodes_with_manual_anomaly": 5,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "test": {
+        "num_episodes": 30,
+        "source": {
+          "human": 15,
+          "pi05_joint": 15
+        },
+        "episode_label": {
+          "0": 18,
+          "1": 12
+        },
+        "source_label": {
+          "human|0": 7,
+          "human|1": 8,
+          "pi05_joint|0": 11,
+          "pi05_joint|1": 4
+        },
+        "frames": {
+          "total_frames": 21804,
+          "manual_normal_frames": 11635,
+          "manual_anomaly_frames": 10169,
+          "manual_normal_ratio": 0.5336176848284718,
+          "manual_anomaly_ratio": 0.4663823151715282,
+          "episodes_with_manual_anomaly": 26,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 6871,
+            "manual_normal_frames": 5413,
+            "manual_anomaly_frames": 1458,
+            "manual_normal_ratio": 0.7878038131276379,
+            "manual_anomaly_ratio": 0.2121961868723621,
+            "episodes_with_manual_anomaly": 11,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 14933,
+            "manual_normal_frames": 6222,
+            "manual_anomaly_frames": 8711,
+            "manual_normal_ratio": 0.4166610861849595,
+            "manual_anomaly_ratio": 0.5833389138150405,
+            "episodes_with_manual_anomaly": 15,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 14007,
+            "manual_normal_frames": 6068,
+            "manual_anomaly_frames": 7939,
+            "manual_normal_ratio": 0.4332119654458485,
+            "manual_anomaly_ratio": 0.5667880345541515,
+            "episodes_with_manual_anomaly": 18,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 7797,
+            "manual_normal_frames": 5567,
+            "manual_anomaly_frames": 2230,
+            "manual_normal_ratio": 0.7139925612415031,
+            "manual_anomaly_ratio": 0.2860074387584969,
+            "episodes_with_manual_anomaly": 8,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      }
+    },
+    "insert_typec": {
+      "all": {
+        "num_episodes": 150,
+        "source": {
+          "human": 100,
+          "pi05_joint": 50
+        },
+        "episode_label": {
+          "0": 85,
+          "1": 65
+        },
+        "source_label": {
+          "human|0": 50,
+          "human|1": 50,
+          "pi05_joint|0": 35,
+          "pi05_joint|1": 15
+        },
+        "frames": {
+          "total_frames": 85757,
+          "manual_normal_frames": 52461,
+          "manual_anomaly_frames": 33296,
+          "manual_normal_ratio": 0.6117401494921697,
+          "manual_anomaly_ratio": 0.38825985050783024,
+          "episodes_with_manual_anomaly": 139,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 42577,
+            "manual_normal_frames": 30934,
+            "manual_anomaly_frames": 11643,
+            "manual_normal_ratio": 0.7265424994715457,
+            "manual_anomaly_ratio": 0.27345750052845436,
+            "episodes_with_manual_anomaly": 91,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 43180,
+            "manual_normal_frames": 21527,
+            "manual_anomaly_frames": 21653,
+            "manual_normal_ratio": 0.49854099119962947,
+            "manual_anomaly_ratio": 0.5014590088003705,
+            "episodes_with_manual_anomaly": 48,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 54833,
+            "manual_normal_frames": 28300,
+            "manual_anomaly_frames": 26533,
+            "manual_normal_ratio": 0.5161125599547718,
+            "manual_anomaly_ratio": 0.4838874400452282,
+            "episodes_with_manual_anomaly": 85,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 30924,
+            "manual_normal_frames": 24161,
+            "manual_anomaly_frames": 6763,
+            "manual_normal_ratio": 0.7813025481826413,
+            "manual_anomaly_ratio": 0.2186974518173587,
+            "episodes_with_manual_anomaly": 54,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "train": {
+        "num_episodes": 100,
+        "source": {
+          "human": 75,
+          "pi05_joint": 25
+        },
+        "episode_label": {
+          "0": 55,
+          "1": 45
+        },
+        "source_label": {
+          "human|0": 38,
+          "human|1": 37,
+          "pi05_joint|0": 17,
+          "pi05_joint|1": 8
+        },
+        "frames": {
+          "total_frames": 51324,
+          "manual_normal_frames": 33011,
+          "manual_anomaly_frames": 18313,
+          "manual_normal_ratio": 0.6431883719117761,
+          "manual_anomaly_ratio": 0.3568116280882238,
+          "episodes_with_manual_anomaly": 91,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 30437,
+            "manual_normal_frames": 22594,
+            "manual_anomaly_frames": 7843,
+            "manual_normal_ratio": 0.7423202023852548,
+            "manual_anomaly_ratio": 0.2576797976147452,
+            "episodes_with_manual_anomaly": 68,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 20887,
+            "manual_normal_frames": 10417,
+            "manual_anomaly_frames": 10470,
+            "manual_normal_ratio": 0.4987312682529803,
+            "manual_anomaly_ratio": 0.5012687317470197,
+            "episodes_with_manual_anomaly": 23,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 31578,
+            "manual_normal_frames": 16998,
+            "manual_anomaly_frames": 14580,
+            "manual_normal_ratio": 0.5382861485844576,
+            "manual_anomaly_ratio": 0.46171385141554244,
+            "episodes_with_manual_anomaly": 55,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 19746,
+            "manual_normal_frames": 16013,
+            "manual_anomaly_frames": 3733,
+            "manual_normal_ratio": 0.810949052972754,
+            "manual_anomaly_ratio": 0.18905094702724604,
+            "episodes_with_manual_anomaly": 36,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "val": {
+        "num_episodes": 20,
+        "source": {
+          "human": 10,
+          "pi05_joint": 10
+        },
+        "episode_label": {
+          "0": 12,
+          "1": 8
+        },
+        "source_label": {
+          "human|0": 5,
+          "human|1": 5,
+          "pi05_joint|0": 7,
+          "pi05_joint|1": 3
+        },
+        "frames": {
+          "total_frames": 13269,
+          "manual_normal_frames": 7746,
+          "manual_anomaly_frames": 5523,
+          "manual_normal_ratio": 0.5837666742030296,
+          "manual_anomaly_ratio": 0.41623332579697037,
+          "episodes_with_manual_anomaly": 18,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 4307,
+            "manual_normal_frames": 3317,
+            "manual_anomaly_frames": 990,
+            "manual_normal_ratio": 0.7701416299048062,
+            "manual_anomaly_ratio": 0.22985837009519386,
+            "episodes_with_manual_anomaly": 8,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 8962,
+            "manual_normal_frames": 4429,
+            "manual_anomaly_frames": 4533,
+            "manual_normal_ratio": 0.4941977237223834,
+            "manual_anomaly_ratio": 0.5058022762776166,
+            "episodes_with_manual_anomaly": 10,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 8801,
+            "manual_normal_frames": 4141,
+            "manual_anomaly_frames": 4660,
+            "manual_normal_ratio": 0.4705147142370185,
+            "manual_anomaly_ratio": 0.5294852857629815,
+            "episodes_with_manual_anomaly": 12,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 4468,
+            "manual_normal_frames": 3605,
+            "manual_anomaly_frames": 863,
+            "manual_normal_ratio": 0.8068487018800358,
+            "manual_anomaly_ratio": 0.19315129811996418,
+            "episodes_with_manual_anomaly": 6,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      },
+      "test": {
+        "num_episodes": 30,
+        "source": {
+          "human": 15,
+          "pi05_joint": 15
+        },
+        "episode_label": {
+          "0": 18,
+          "1": 12
+        },
+        "source_label": {
+          "human|0": 7,
+          "human|1": 8,
+          "pi05_joint|0": 11,
+          "pi05_joint|1": 4
+        },
+        "frames": {
+          "total_frames": 21164,
+          "manual_normal_frames": 11704,
+          "manual_anomaly_frames": 9460,
+          "manual_normal_ratio": 0.553014553014553,
+          "manual_anomaly_ratio": 0.446985446985447,
+          "episodes_with_manual_anomaly": 30,
+          "manual_anomaly_count_range_mismatch_episodes": 0
+        },
+        "source_frames": {
+          "human": {
+            "total_frames": 7833,
+            "manual_normal_frames": 5023,
+            "manual_anomaly_frames": 2810,
+            "manual_normal_ratio": 0.6412613302693732,
+            "manual_anomaly_ratio": 0.35873866973062685,
+            "episodes_with_manual_anomaly": 15,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "pi05_joint": {
+            "total_frames": 13331,
+            "manual_normal_frames": 6681,
+            "manual_anomaly_frames": 6650,
+            "manual_normal_ratio": 0.5011627034731078,
+            "manual_anomaly_ratio": 0.4988372965268922,
+            "episodes_with_manual_anomaly": 15,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        },
+        "episode_label_frames": {
+          "0": {
+            "total_frames": 14454,
+            "manual_normal_frames": 7161,
+            "manual_anomaly_frames": 7293,
+            "manual_normal_ratio": 0.4954337899543379,
+            "manual_anomaly_ratio": 0.5045662100456622,
+            "episodes_with_manual_anomaly": 18,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          },
+          "1": {
+            "total_frames": 6710,
+            "manual_normal_frames": 4543,
+            "manual_anomaly_frames": 2167,
+            "manual_normal_ratio": 0.6770491803278689,
+            "manual_anomaly_ratio": 0.32295081967213113,
+            "episodes_with_manual_anomaly": 12,
+            "manual_anomaly_count_range_mismatch_episodes": 0
+          }
+        }
+      }
+    }
+  }
+}

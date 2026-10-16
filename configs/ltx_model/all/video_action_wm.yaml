@@ -1,0 +1,205 @@
+model_name: "ltx_video_action_wm"
+is_i2v: true
+report_to: none
+tracker_name: ltx_video_action_wm
+
+logging_dir: logs
+output_dir: /root/MAIA/outputs/all/video_action_wm
+pretrained_model_name_or_path: /root/MAIA/weights/ltx_video
+
+train_data_class_path: data/lerobot_chunk_dataset_traverse.py
+train_data_class: CustomLeRobotChunkTraverseDataset
+val_data_class_path: data/lerobot_chunk_dataset_traverse.py
+val_data_class: CustomLeRobotChunkTraverseDataset
+
+tokenizer_class_path: transformers
+tokenizer_class: T5Tokenizer
+textenc_class_path: transformers
+textenc_class: T5EncoderModel
+vae_class_path: models/ltx_models/autoencoder_kl_ltx.py
+vae_class: AutoencoderKLLTXVideo
+diffusion_model_class_path: models/ltx_models/transformer_ltx_multiview_va.py
+diffusion_model_class: LTXVideoTransformer3DModel
+diffusion_scheduler_class_path: diffusers
+diffusion_scheduler_class: FlowMatchEulerDiscreteScheduler
+
+pipeline_class_path: models/pipeline/custom_pipeline_va.py
+pipeline_class: CustomPipeline
+
+return_video: true
+return_action: false
+return_force: false
+return_interaction: false
+
+train_mode: "all"   # all | adapter_only | video_only
+video_loss_scale: 1.0
+label_filter: only_normal    # all | only_normal
+
+train_steps: 30000
+train_epochs: 500
+steps_to_save: 5000
+steps_to_log: 20
+steps_to_val: 2000
+val_num_samples: 1
+val_num_inference_steps: 5
+val_guidance_scale: 1.0
+val_decode_timestep: 0.03
+val_decode_noise_scale: 0.025
+val_noise_seed: 42
+
+mixed_precision: bf16
+allow_tf32: false
+nccl_timeout: 600
+seed: 42
+
+enable_slicing: true
+enable_tiling: true
+add_state: false
+caption_dropout_p: 0.06
+
+batch_size: 8
+dataloader_num_workers: 4
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+
+gradient_checkpointing: false
+noise_to_first_frame: 0.1
+
+optimizer: adamw
+lr: 3.0e-5
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+epsilon: 1.0e-8
+weight_decay: 1.0e-5
+optimizer_8bit: false
+optimizer_torchao: false
+scale_lr: false
+
+max_grad_norm: 1.0
+gradient_accumulation_steps: 1
+
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 1000
+lr_num_cycles: 1
+lr_power: 1.0
+
+flow_weighting_scheme: none
+flow_logit_mean: 0.0
+flow_logit_std: 1.0
+flow_mode_scale: 1.29
+pixel_wise_timestep: true
+use_color_jitter: true
+num_inference_step: 1
+noisy_video: false
+
+load_weights: true
+load_diffusion_model_weights: true
+
+diffusion_model:
+  model_path: /root/MAIA/weights/ge_base/GE_base_fast_v0.1.safetensors
+  config:
+    activation_fn: gelu-approximate
+    attention_bias: true
+    attention_head_dim: 64
+    attention_out_bias: true
+    caption_channels: 4096
+    cross_attention_dim: 2048
+    in_channels: 128
+    norm_elementwise_affine: false
+    norm_eps: 1.0e-6
+    num_attention_heads: 32
+    num_layers: 28
+    out_channels: 128
+    patch_size: 1
+    patch_size_t: 1
+    qk_norm: rms_norm_across_heads
+
+    use_action_adapter: true
+    action_dim: 8
+    action_condition_dim: 8
+    adapter_layers:
+    action_position_base_seq_length: 64
+    action_context_dropout: 0.0
+    interaction_readout_num_heads: 8
+    interaction_readout_dropout: 0.0
+
+split_manifest:  /root/MAIA/data_splits/train13_seed42_val20_test30_train100.json
+data:
+  train:
+    data_roots: ["/root/CRIA"]
+    domains: all
+
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "random"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest:   /root/MAIA/data_splits/train13_seed42_val20_test30_train100.json
+    split: train
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/train13_stats_chunk_100.json"
+
+  val:
+    data_roots: ["/root/CRIA"]
+    domains: all
+
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "random"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest:  /root/MAIA/data_splits/train13_seed42_val20_test30_train100.json
+    split: val
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/train13_stats_chunk_100.json"
+
+
+use_deepspeed: false
+deepspeed:
+  zero_optimization:
+    stage: 2
+  fp16:
+    enabled: false
+  bf16:
+    enabled: true
+  gradient_clipping: 1.0

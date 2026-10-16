@@ -1,0 +1,226 @@
+model_name: "ltx_video_latent_anomaly"
+is_i2v: true
+report_to: wandb  
+tracker_name: ltx_video_latent_anomaly
+run_name: finetune
+
+logging_dir: logs
+output_dir: /root/MAIA/outputs/all/video_anomaly
+pretrained_model_name_or_path: /root/MAIA/weights/ltx_video
+
+train_data_class_path: data/lerobot_chunk_dataset_traverse.py
+train_data_class: CustomLeRobotChunkTraverseDataset
+val_data_class_path: data/lerobot_chunk_dataset_traverse.py
+val_data_class: CustomLeRobotChunkTraverseDataset
+
+tokenizer_class_path: transformers
+tokenizer_class: T5Tokenizer
+textenc_class_path: transformers
+textenc_class: T5EncoderModel
+vae_class_path: models/ltx_models/autoencoder_kl_ltx.py
+vae_class: AutoencoderKLLTXVideo
+diffusion_model_class_path: models/ltx_models/transformer_ltx_multiview_v.py
+diffusion_model_class: LTXVideoTransformer3DModel
+diffusion_scheduler_class_path: diffusers
+diffusion_scheduler_class: FlowMatchEulerDiscreteScheduler
+
+pipeline_class_path: models/pipeline/custom_pipeline_v.py
+pipeline_class: CustomPipeline
+
+return_action: false
+return_video: false
+train_mode: "anomaly_head"
+label_filter: "all"
+
+anomaly_head_checkpoint: /root/MAIA/outputs/all/video_anomaly/anomaly_head.pt
+anomaly_feature_cache_dir: /root/MAIA/cache/all/video_anomaly_finetune
+anomaly_cache_max_open_shards: 8
+anomaly_head_class_path: models/anomaly_head/video_anomaly.py
+anomaly_head_class: VideoLatentAnomalyHead_v1
+anomaly_target: "label"          # label | risk_label
+anomaly_positive_is: "anomaly"   # label=1 normal, so anomaly target is 1-label
+anomaly_pos_weight: 5.0
+anomaly_guidance_scale: 1.0
+window_loss_scale: 1.0
+risk_loss_scale: 0.5
+step_loss_scale: 0.5
+anomaly_val_batches: 
+anomaly_val_threshold: 0.5
+
+anomaly_head:
+  hidden_dim: 256
+  feature_dim: 128
+  dropout: 0.1
+  latent_channels: 128
+  temporal_layers: 2
+  temporal_heads: 4
+  max_steps: 256
+  topk_ratio: 0.2
+  window_pool: topk
+  risk_pool: mean
+
+train_steps: 1000
+train_epochs: 500
+steps_to_save: 500
+steps_to_log: 20
+steps_to_val: 500
+
+mixed_precision: bf16
+allow_tf32: false
+nccl_timeout: 1800
+seed: 42
+
+enable_slicing: true
+enable_tiling: true
+add_state: false
+caption_dropout_p: 0.0
+
+batch_size: 32
+dataloader_num_workers: 8
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+
+gradient_checkpointing: false
+noise_to_first_frame: 0.1
+
+optimizer: adamw
+lr: 1.0e-5
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+epsilon: 1e-8
+weight_decay: 1e-5
+optimizer_8bit: false
+optimizer_torchao: false
+scale_lr: false
+
+max_grad_norm: 1.0
+gradient_accumulation_steps: 1
+
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 500
+lr_num_cycles: 1
+lr_power: 1.0
+
+flow_weighting_scheme: none
+flow_logit_mean: 0.0
+flow_logit_std: 1.0
+flow_mode_scale: 1.29
+
+pixel_wise_timestep: true
+
+diffusion_model:
+  model_path: /root/MAIA/outputs/all/video_wm/diffusion_pytorch_model.safetensors
+  config:
+    activation_fn: gelu-approximate
+    attention_bias: true
+    attention_head_dim: 64
+    attention_out_bias: true
+    caption_channels: 4096
+    cross_attention_dim: 2048
+    in_channels: 128
+    norm_elementwise_affine: false
+    norm_eps: 1.0e-6
+    num_attention_heads: 32
+    num_layers: 28
+    out_channels: 128
+    patch_size: 1
+    patch_size_t: 1
+    qk_norm: rms_norm_across_heads
+    action_expert: false
+
+data:
+  train:
+    data_roots: ["/root/CRIA"]
+    domains: all
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "uniform"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+
+    # Trainer compatibility fields read directly by ge_trainer.py.
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest: /root/MAIA/data_splits/novel5_seed42_val20_test30_train10.json
+    split: train
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/train13_stats_chunk_100.json"
+
+    force_key: "observation.state.wrench_filtered_chunk"
+    force_mode: "last"
+    force_dim: 6
+    force_type: absolute
+
+  val:
+    data_roots: ["/root/CRIA"]
+    domains: all
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "uniform"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest:  /root/MAIA/data_splits/novel5_seed42_val20_test30_train10.json
+    split: val
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/train13_stats_chunk_100.json"
+
+    force_key: "observation.state.wrench_filtered_chunk"
+    force_mode: "last"
+    force_dim: 6
+    force_type: absolute
+
+use_color_jitter: true
+num_inference_step: 1
+noisy_video: false
+load_weights: true
+
+use_deepspeed: false
+deepspeed:
+  zero_optimization:
+    stage: 2
+  fp16:
+    enabled: false
+  bf16:
+    enabled: true
+  gradient_clipping: 1.0
+
+# inference 
+random_validation: true
+validation_seed: 42

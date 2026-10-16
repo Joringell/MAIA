@@ -1,0 +1,255 @@
+model_name: "ltx_video_action_force_anomaly"
+is_i2v: true
+report_to: wandb
+tracker_name: ltx_video_action_force_anomaly
+run_name: video_action_force_anomaly_joint
+
+logging_dir: logs
+output_dir: /root/MAIA/outputs/all/video_action_force_anomaly
+pretrained_model_name_or_path: /root/MAIA/weights/ltx_video
+
+train_data_class_path: data/lerobot_chunk_dataset_traverse.py
+train_data_class: CustomLeRobotChunkTraverseDataset
+val_data_class_path: data/lerobot_chunk_dataset_traverse.py
+val_data_class: CustomLeRobotChunkTraverseDataset
+
+tokenizer_class_path: transformers
+tokenizer_class: T5Tokenizer
+textenc_class_path: transformers
+textenc_class: T5EncoderModel
+vae_class_path: models/ltx_models/autoencoder_kl_ltx.py
+vae_class: AutoencoderKLLTXVideo
+diffusion_model_class_path: models/ltx_models/transformer_ltx_multiview_vaf.py
+diffusion_model_class: LTXVideoTransformer3DModel
+diffusion_scheduler_class_path: diffusers
+diffusion_scheduler_class: FlowMatchEulerDiscreteScheduler
+
+pipeline_class_path: models/pipeline/custom_pipeline_vaf.py
+pipeline_class: CustomPipeline
+
+return_video: false
+return_force: true
+return_interaction: true
+
+train_mode: "anomaly_adapter_joint"
+# Optional: resume/finetune from a previously saved step_xxxx/anomaly_head.pt.
+anomaly_head_checkpoint: /root/MAIA/outputs/all/video_action_force_anomaly/anomaly_head.pt
+# Optional Stage3 finetune mode: freeze feature encoders and only train step_head classifier.
+anomaly_train_classifier_only: false
+anomaly_head_class_path: models/anomaly_head/video_action_force_anomaly.py
+anomaly_head_class: ActionForceAnomalyHead_v1
+
+# Optional per-window loss weights keyed by interaction_label. Example: {"0": 1.0, "1": 2.0}
+interaction_loss_weights:
+  "0": 1.0
+  "1": 2.0
+anomaly_target: "label"          # label | risk_label
+anomaly_positive_is: "anomaly"   # label=1 normal, so anomaly target is 1-label
+anomaly_pos_weight: 5.0   
+anomaly_guidance_scale: 1.0
+window_loss_scale: 1.0
+risk_loss_scale: 0.5
+risk_loss_type: smooth_l1
+step_loss_scale: 0.5
+
+anomaly_head:
+  hidden_dim: 256
+  feature_dim: 128
+  dropout: 0.1
+  latent_channels: 128
+  temporal_layers: 2
+  temporal_heads: 4
+  max_steps: 256
+  topk_ratio: 0.2
+  history_context_scale: 0.25
+  window_pool: topk
+  risk_pool: mean
+  # Defaults to transformer inner dim: num_attention_heads * attention_head_dim.
+  # interaction_dim: 2048
+
+train_steps: 1000
+train_epochs: 100
+steps_to_save: 500
+steps_to_log: 20
+steps_to_val: 0
+anomaly_val_batches: 50
+anomaly_val_threshold: 0.5
+
+mixed_precision: bf16
+allow_tf32: false
+nccl_timeout: 3600
+seed: 42
+
+enable_slicing: true
+enable_tiling: true
+add_state: false
+caption_dropout_p: 0.0
+
+batch_size: 8
+dataloader_num_workers: 4
+pin_memory: true
+persistent_workers: true
+prefetch_factor: 4
+
+gradient_checkpointing: false
+noise_to_first_frame: 0.1
+
+optimizer: adamw
+lr: 1.0e-5  
+beta1: 0.9
+beta2: 0.95
+beta3: 0.999
+epsilon: 1.0e-8
+weight_decay: 1.0e-5
+optimizer_8bit: false
+optimizer_torchao: false
+scale_lr: false
+
+max_grad_norm: 1.0
+gradient_accumulation_steps: 1
+
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 500
+lr_num_cycles: 1
+lr_power: 1.0
+
+flow_weighting_scheme: none
+flow_logit_mean: 0.0
+flow_logit_std: 1.0
+flow_mode_scale: 1.29
+pixel_wise_timestep: true
+use_color_jitter: false
+num_inference_step: 1
+noisy_video: false
+
+load_weights: true
+load_diffusion_model_weights: true
+
+diffusion_model:
+  model_path: /root/MAIA/outputs/all/video_action_force_wm/diffusion_pytorch_model.safetensors
+  config:
+    activation_fn: gelu-approximate
+    attention_bias: true
+    attention_head_dim: 64
+    attention_out_bias: true
+    caption_channels: 4096
+    cross_attention_dim: 2048
+    in_channels: 128
+    norm_elementwise_affine: false
+    norm_eps: 1.0e-6
+    num_attention_heads: 32
+    num_layers: 28
+    out_channels: 128
+    patch_size: 1
+    patch_size_t: 1
+    qk_norm: rms_norm_across_heads
+
+    use_action_force_adapter: true
+    action_dim: 8
+    force_dim: 6
+    adapter_layers:
+    force_decoder_hidden_dim:
+    force_decoder_num_layers: 2
+    force_decoder_num_heads: 8
+    force_decoder_dropout: 0.0
+    interaction_readout_num_heads: 8
+    interaction_readout_dropout: 0.0
+    action_position_base_seq_length: 64
+    force_history_hidden_channels: [64, 128, 128]
+    force_history_kernel_size: 3
+    force_history_dropout: 0.1
+    force_history_include_delta: true
+    force_history_include_norm: true
+    force_dynamic_max_tokens: 16
+    action_force_context_num_heads: 8
+    action_force_context_dropout: 0.0
+
+split_manifest: /root/MAIA/data_splits/novel5_seed42_val20_test30_train10.json
+data:
+  train:
+    data_roots: ["/root/CRIA"]
+    domains: all
+
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode:   "uniform"   
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest: /root/MAIA/data_splits/novel5_seed42_val20_test30_train10.json
+    split: train
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/train13_stats_chunk_100.json"
+
+    force_key: "observation.state.wrench_filtered_chunk"
+    force_mode: "last"
+    force_dim: 6
+    force_type: absolute
+    force_history_steps: 78
+
+  val:
+    data_roots: ["/root/CRIA"]
+    domains: all
+
+    sample_size: [192, 256]
+    preprocess: "resize"
+    valid_cam: ["wrist", "side_1", "side_2"]
+    random_crop: false
+    dataset_info_cache_path:
+
+    memory_steps: 4
+    memory_span_steps: 128
+    memory_pick_mode: "uniform"
+    future_steps: 50
+    video_stride: 10
+    window_stride: 10
+
+    n_previous: 4
+    action_chunk: 50
+    chunk: 5
+
+    split_manifest: /root/MAIA/data_splits/novel5_seed42_val20_test30_train10.json
+    split: val
+
+    action_key: "action"
+    action_dim: 8
+    state_key:
+      - "observation.state.ee_pose"
+      - "observation.state.q"
+    action_type: "absolute"
+    action_space: "eef"
+    stat_file: "/root/MAIA/norm_stats/train13_stats_chunk_100.json"
+
+    force_key: "observation.state.wrench_filtered_chunk"
+    force_mode: "last"
+    force_dim: 6
+    force_type: absolute
+    force_history_steps: 78
+
+use_deepspeed: false
+deepspeed:
+  zero_optimization:
+    stage: 2
+  fp16:
+    enabled: false
+  bf16:
+    enabled: true
+  gradient_clipping: 1.0
